@@ -159,6 +159,7 @@ getCoffeeShops = () => {
                             var adressStart = geoAddress.results[0].locations[0]
                             var startAddress = adressStart.street + ", " + adressStart.adminArea5 + ", " + adressStart.adminArea3 + ", " + adressStart.postalCode
                             $(".card-button").click(function () {
+                                $(".theMap").empty();
                                 var shopAddress = $(this).data('address');
                                 console.log(shopAddress)
                                 L.mapquest.key = 'QR7nQvmiQcuP7wcQSNDMp8gjLvJsXBcr';
