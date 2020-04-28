@@ -42,15 +42,21 @@ getCoffeeShops = () => {
                 $(cardContent).append(cardStoreHours);
                 $("#coffee-shops-homes").append(coffeeShopCard);
             }
-            for (var i = 0; i < data.candidates.length; i++) {
-                console.log(data.candidates[i].address);
+            for (var i = 0; i < 4; i++) {
+                console.log(data.candidates[i]);
                 console.log(data.candidates[i].attributes.Place_addr);
-                var coffeeShopCard = $("<div>").addClass("col s12 m12").attr({
-                    "class": "card-button",
-                    "data-address": data.candidates[i].attributes.Place_addr
+                var coffeeShopCard = $("<div>").attr({
+                    "class": "card-button col s12 m3",
+                    "data-address": data.candidates[i].attributes.Place_addr,
+                    "style": "color:#334b51 "
+
                 });
-                var cardTitle = $("<h5>").addClass("header").text(data.candidates[i].address);
-                var horizontalCard = $("<div>").addClass("card horizontal");
+                var cardTitle = $("<h5>").attr({
+                    "style": "text-align:left"
+                }).text(data.candidates[i].address);
+                var horizontalCard = $("<div>").addClass("card horizontal").attr({
+                    "style": "padding-left:2rem; background-color:#ffebcd"
+                });
                 var cardImg = $("<div>").addClass("card-image");
                 var Img = $('<img />', {
                     id: "image-" + [i],
@@ -58,7 +64,9 @@ getCoffeeShops = () => {
                     alt: 'placeholder'
                 });
                 var cardStack = $("<div>").addClass("card-stack");
-                var cardContent = $("<div>").addClass("card-content card-items")
+                var cardContent = $("<div>").addClass("card-content card-items").attr({
+                    "style": "padding-left:0"
+                })
                 // var cardButton = $("<a />").addClass("waves-effect waves-light btn").text("button")
                 var cardIdentifier = $("<h6>").text("Coffee Shop");
                 var cardStoreHours = $("<h6>").text("Store Hours: 6am to 9pm");
@@ -110,16 +118,18 @@ getCoffeeShops = () => {
                         console.log(response)
                         responseEl = response
                         // console.log(responseEl)
-                        for (var i = 0; i < responseEl.candidates.length; i++) {
+                        for (var i = 0; i < 4; i++) {
                             // console.log(responseEl.candidates[i].address);
                             let cityEl = responseEl.candidates[i].attributes.Place_addr;
                             // console.log(responseEl.candidates[i].attributes.Place_addr);
-                            var coffeeShopCard = $("<div>").addClass("col s12 m12").attr({
-                                "class": "card-button",
+                            var coffeeShopCard = $("<div>").attr({
+                                "class": "card-button col s12 m3",
                                 "data-address": response.candidates[i].attributes.Place_addr
                             });
                             var cardTitle = $("<h5>").addClass("header").text(responseEl.candidates[i].address);
-                            var horizontalCard = $("<div>").addClass("card horizontal");
+                            var horizontalCard = $("<div>").addClass("card horizontal").attr({
+                                "style": "padding-left:2rem; background-color:#ffebcd"
+                            });
                             var cardImg = $("<div>").addClass("card-image");
                             var Img = $('<img />', {
                                 id: "image-" + [i],
@@ -127,8 +137,10 @@ getCoffeeShops = () => {
                                 alt: 'placeholder'
                             });
                             var cardStack = $("<div>").addClass("card-stack");
-                            var cardContent = $("<div>").addClass("card-content card-items")
-                            // var cardButton = $("<a />").addClass("waves-effect waves-light btn").text("button")
+                            var cardContent = $("<div>").addClass("card-content card-items").attr({
+                                "style": "padding-left:0"
+                            })
+
                             var cardIdentifier = $("<h6>").text("Coffee Shop");
                             var cardStoreHours = $("<h6>").text("Store Hours: 6am to 9pm");
                             $(coffeeShopCard).append(horizontalCard);
@@ -137,7 +149,6 @@ getCoffeeShops = () => {
                             $(cardStack).append(cardContent);
                             $(cardContent).append(cardIdentifier);
                             $(horizontalCard).append(cardImg);
-                            $(cardImg).append(Img);
                             $(cardContent).append(cardStoreHours);
                             $("#coffee-shops-homes").append(coffeeShopCard);
                         }
