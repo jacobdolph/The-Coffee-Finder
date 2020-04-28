@@ -38,7 +38,7 @@ getCoffeeShops = () => {
                 $(cardStack).append(cardContent);
                 $(cardContent).append(cardIdentifier);
                 $(horizontalCard).append(cardImg);
-                $(cardImg).append(Img);
+
                 $(cardContent).append(cardStoreHours);
                 $("#coffee-shops-homes").append(coffeeShopCard);
             }
