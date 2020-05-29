@@ -7,9 +7,9 @@ It is mid afternoon and you hit your five o'clock downer. You grab for your phon
 
 ### Gallery
 Home:
-![User Interface](assets\css\CoffeeFinderSC.png "Coffee Finder")
+![User Interface](./assets/css/CoffeeFinderSC.png)
 Mobile View:
-![Mobile Page View](assets\css\MobileCF.png "Mobile Page View")
+![Mobile Page View](./assets/css/MobileCF.png "Mobile Page View")
 ### Problem
 We don't know how to find coffee when it is needed.
 ### Solution
