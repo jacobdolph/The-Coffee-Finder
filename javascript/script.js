@@ -9,7 +9,6 @@ function buildQueryUrl(lat, lon) {
     queryParams.category = "coffee shop";
     queryParams.outFields = "Place_addr", "PlaceName";
     queryParams.maxLocations = "5";
-    console.log("from build query url function: " + lat, lon)
     queryParams.location = `${lat},${lon}`;
     return queryURL + $.param(queryParams);
 }
@@ -20,13 +19,10 @@ var starVar = 0
 
 getCoffeeShops = (lat, lon) => {
     queryURL = buildQueryUrl(lat, lon);
-    console.log(queryURL)
-    console.log("from get coffee shops lat and lon" + lat, lon)
     $.ajax({
         url: queryURL,
         method: "GET"
     }).then(function (data) {
-        console.log(data)
         const buildCoffeeShopCard = () => {
             $(coffeeShopCard).append(horizontalCard);
             $(horizontalCard).append(cardTitle);
@@ -39,8 +35,6 @@ getCoffeeShops = (lat, lon) => {
             $("#coffee-shops-homes").append(coffeeShopCard);
         }
         for (var i = 0; i < 4; i++) {
-            console.log(data.candidates[i]);
-            console.log(data.candidates[i].attributes.Place_addr);
             var coffeeShopCard = $("<div>").attr({
                 "class": "card-button col s12 m3",
                 "data-address": data.candidates[i].attributes.Place_addr,
@@ -69,20 +63,19 @@ getCoffeeShops = (lat, lon) => {
             buildCoffeeShopCard();
         }
         // ----finding the reverse address from the lattitude and longitude
-        console.log(lon, lat)
+
         let reverseURL = `https://www.mapquestapi.com/geocoding/v1/reverse?key=Sf1vVXP4tsAXRiAvYumsYGJTgGd0wlMe&location=${lon},${lat}&includeRoadMetadata=true&includeNearestIntersection=true`;
-        console.log(reverseURL)
+
         // ----finding the reverse address of of the lattitude and longitude
         $.ajax({
             url: reverseURL,
             method: "GET"
         }).then(function (geoAddress) {
-            console.log(geoAddress)
+
             var adressStart = geoAddress.results[0].locations[0]
             var startAddress = adressStart.street + ", " + adressStart.adminArea5 + ", " + adressStart.adminArea3 + ", " + adressStart.postalCode
             $(".card-button").click(function () {
                 var shopAddress = $(this).data('address');
-                console.log(shopAddress)
                 L.mapquest.key = 'QR7nQvmiQcuP7wcQSNDMp8gjLvJsXBcr';
                 if (starVar === 0) {
                     starVar = 1
@@ -118,10 +111,10 @@ const findByZipcode = (pos) => {
     let crds = pos.coords;
     let lat = crds.latitude;
     let lon = crds.longitude;
-    console.log("find by zipcode: -----------------" + lat)
+
     var reverseURL = "https://www.mapquestapi.com/geocoding/v1/reverse?key=Sf1vVXP4tsAXRiAvYumsYGJTgGd0wlMe&location=" + lat + "," + lon + "&includeRoadMetadata=true&includeNearestIntersection=true"
     var zipcode = $('#search').val().trim();
-    console.log("zipcode found from find by zipcode: " + zipcode)
+
     var url = 'https://public.opendatasoft.com/api/records/1.0/search/?dataset=us-zip-code-latitude-and-longitude&q=' + zipcode + '&facet=state&facet=timezone&facet=dst'
     $.ajax({
         url: url,
@@ -132,18 +125,18 @@ const findByZipcode = (pos) => {
         let lon = zips.records[0].fields.latitude
         // var queryURL = "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates?";
         let queryURL = buildQueryUrl(lat, lon);
-        console.log("find from zipcode query url: " + queryURL)
+
         $.ajax({
             url: queryURL,
             method: "GET"
         }).then(function (response) {
-            console.log("response from zipcodes: " + JSON.stringify(response))
-            responseEl = response
-            // console.log(responseEl)
+
+            responseEl = response;
+
             for (var i = 0; i < 4; i++) {
-                // console.log(responseEl.candidates[i].address);
+
                 let cityEl = responseEl.candidates[i].attributes.Place_addr;
-                // console.log(responseEl.candidates[i].attributes.Place_addr);
+
                 var coffeeShopCard = $("<div>").attr({
                     "class": "card-button col s12 m3",
                     "data-address": response.candidates[i].attributes.Place_addr
@@ -184,7 +177,7 @@ const findByZipcode = (pos) => {
                 $(".card-button").click(function () {
                     $(".theMap").empty();
                     var shopAddress = $(this).data('address');
-                    console.log(shopAddress)
+
                     L.mapquest.key = 'QR7nQvmiQcuP7wcQSNDMp8gjLvJsXBcr';
                     if (starVar === 0) {
                         starVar = 1
@@ -211,10 +204,6 @@ window.onload = () => {
 
     function success(pos) {
         let crd = pos.coords;
-        console.log('Your current position is:');
-        console.log(`Latitude : ${crd.latitude}`);
-        console.log(`Longitude: ${crd.longitude}`);
-        console.log(`More or less ${crd.accuracy} meters.`);
         let lon = crd.longitude;
         let lat = crd.latitude;
         getCoffeeShops(lon, lat)
@@ -225,10 +214,6 @@ $('#searchButton').on("click", function () {
     navigator.geolocation.getCurrentPosition(success, error, options)
     function success(pos) {
         let crd = pos.coords;
-        console.log('Your current position is:');
-        console.log(`Latitude : ${crd.latitude}`);
-        console.log(`Longitude: ${crd.longitude}`);
-        console.log(`More or less ${crd.accuracy} meters.`);
         let lon = crd.longitude;
         let lat = crd.latitude;
         findByZipcode(pos)
