@@ -15,7 +15,17 @@ function buildQueryUrl(lat, lon) {
 // this variable allows the map builder to wait until that script is read to build the
 var starVar = 0
 // this function is called once the page loads with the windows.onload function at the bottom
+const buildCoffeeShopCard = (coffeeShopCard, horizontalCard, cardTitle, cardStack, cardContent, cardIdentifier, cardImg, cardStoreHours) => {
+    $(coffeeShopCard).append(horizontalCard);
+    $(horizontalCard).append(cardTitle);
+    $(cardTitle).append(cardStack);
+    $(cardStack).append(cardContent);
+    $(cardContent).append(cardIdentifier);
+    $(horizontalCard).append(cardImg);
 
+    $(cardContent).append(cardStoreHours);
+    $("#coffee-shops-homes").append(coffeeShopCard);
+}
 
 getCoffeeShops = (lat, lon) => {
     queryURL = buildQueryUrl(lat, lon);
@@ -23,44 +33,34 @@ getCoffeeShops = (lat, lon) => {
         url: queryURL,
         method: "GET"
     }).then(function (data) {
-        const buildCoffeeShopCard = () => {
-            $(coffeeShopCard).append(horizontalCard);
-            $(horizontalCard).append(cardTitle);
-            $(cardTitle).append(cardStack);
-            $(cardStack).append(cardContent);
-            $(cardContent).append(cardIdentifier);
-            $(horizontalCard).append(cardImg);
 
-            $(cardContent).append(cardStoreHours);
-            $("#coffee-shops-homes").append(coffeeShopCard);
-        }
         for (var i = 0; i < 4; i++) {
-            var coffeeShopCard = $("<div>").attr({
+            let coffeeShopCard = $("<div>").attr({
                 "class": "card-button col s12 m3",
                 "data-address": data.candidates[i].attributes.Place_addr,
                 "style": "color:#334b51 "
 
             });
-            var cardTitle = $("<h5>").attr({
+            let cardTitle = $("<h5>").attr({
                 "style": "text-align:left"
             }).text(data.candidates[i].address);
-            var horizontalCard = $("<div>").addClass("card horizontal").attr({
+            let horizontalCard = $("<div>").addClass("card horizontal").attr({
                 "style": "padding-left:2rem; background-color:#ffebcd"
             });
-            var cardImg = $("<div>").addClass("card-image");
-            var Img = $('<img />', {
+            let cardImg = $("<div>").addClass("card-image");
+            let Img = $('<img />', {
                 id: "image-" + [i],
                 src: 'https://media.giphy.com/media/7qV3yswT0K8hi/giphy.gif',
                 alt: 'placeholder'
             });
-            var cardStack = $("<div>").addClass("card-stack");
-            var cardContent = $("<div>").addClass("card-content card-items").attr({
+            let cardStack = $("<div>").addClass("card-stack");
+            let cardContent = $("<div>").addClass("card-content card-items").attr({
                 "style": "padding-left:0"
             })
-            // var cardButton = $("<a />").addClass("waves-effect waves-light btn").text("button")
-            var cardIdentifier = $("<h6>").text("Coffee Shop");
-            var cardStoreHours = $("<h6>").text("Store Hours: 6am to 9pm");
-            buildCoffeeShopCard();
+            // let cardButton = $("<a />").addClass("waves-effect waves-light btn").text("button")
+            let cardIdentifier = $("<h6>").text("Coffee Shop");
+            let cardStoreHours = $("<h6>").text("Store Hours: 6am to 9pm");
+            buildCoffeeShopCard(coffeeShopCard, horizontalCard, cardTitle, cardStack, cardContent, cardIdentifier, cardImg, cardStoreHours);
         }
         // ----finding the reverse address from the lattitude and longitude
 
@@ -137,35 +137,28 @@ const findByZipcode = (pos) => {
 
                 let cityEl = responseEl.candidates[i].attributes.Place_addr;
 
-                var coffeeShopCard = $("<div>").attr({
+                let coffeeShopCard = $("<div>").attr({
                     "class": "card-button col s12 m3",
                     "data-address": response.candidates[i].attributes.Place_addr
                 });
-                var cardTitle = $("<h5>").addClass("header").text(responseEl.candidates[i].address);
-                var horizontalCard = $("<div>").addClass("card horizontal").attr({
+                let cardTitle = $("<h5>").addClass("header").text(responseEl.candidates[i].address);
+                let horizontalCard = $("<div>").addClass("card horizontal").attr({
                     "style": "padding-left:2rem; background-color:#ffebcd"
                 });
-                var cardImg = $("<div>").addClass("card-image");
-                var Img = $('<img />', {
+                let cardImg = $("<div>").addClass("card-image");
+                let Img = $('<img />', {
                     id: "image-" + [i],
                     src: 'https://media.giphy.com/media/7qV3yswT0K8hi/giphy.gif',
                     alt: 'placeholder'
                 });
-                var cardStack = $("<div>").addClass("card-stack");
-                var cardContent = $("<div>").addClass("card-content card-items").attr({
+                let cardStack = $("<div>").addClass("card-stack");
+                let cardContent = $("<div>").addClass("card-content card-items").attr({
                     "style": "padding-left:0"
                 })
 
-                var cardIdentifier = $("<h6>").text("Coffee Shop");
-                var cardStoreHours = $("<h6>").text("Store Hours: 6am to 9pm");
-                $(coffeeShopCard).append(horizontalCard);
-                $(horizontalCard).append(cardTitle);
-                $(cardTitle).append(cardStack);
-                $(cardStack).append(cardContent);
-                $(cardContent).append(cardIdentifier);
-                $(horizontalCard).append(cardImg);
-                $(cardContent).append(cardStoreHours);
-                $("#coffee-shops-homes").append(coffeeShopCard);
+                let cardIdentifier = $("<h6>").text("Coffee Shop");
+                let cardStoreHours = $("<h6>").text("Store Hours: 6am to 9pm");
+                buildCoffeeShopCard(coffeeShopCard, horizontalCard, cardTitle, cardStack, cardContent, cardIdentifier, cardImg, cardStoreHours);
 
             }
             $.ajax({
