@@ -3,8 +3,8 @@ body{
   
     background-image: url('./espresso-coffee-639x425.jpg');
     background-repeat: no-repeat;
-    background-size: 2880px;
-    background-position: center;
+    background-size: 2000px;
+    background-position: top;
     font-family: 'Abril Fatface', cursive;
 }
 .title{
@@ -19,3 +19,33 @@ body{
 .last-row{
     margin: 0;
 }
+/* label color */
+.input-field label {
+    color: #1f2022;
+   font-size: large;
+   margin:1rem 2rem 2rem 0rem;
+   font-family: Arial, Helvetica, sans-serif;
+  }
+  /* label focus color */
+  .input-field input[type=text]:focus + label {
+    color: #ffebcd;
+  }
+  /* label underline focus color */
+  .input-field input[type=text]:focus {
+    border-bottom: 1px solid #000;
+    box-shadow: 0 1px 0 0 #000;
+  }
+  /* valid color */
+  .input-field input[type=text].valid {
+    border-bottom: 1px solid #000;
+    box-shadow: 0 1px 0 0 #000;
+  }
+  /* invalid color */
+  .input-field input[type=text].invalid {
+    border-bottom: 1px solid #000;
+    box-shadow: 0 1px 0 0 #000;
+  }
+  /* icon prefix focus color */
+  .input-field .prefix.active {
+    color: #000;
+  }
