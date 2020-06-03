@@ -1,7 +1,4 @@
 let coffeeShopCard, cardTitle, horizontalCard, cardImg, Img, cardStack, cardContent, cardIdentifier, cardStoreHours;
-
-
-
 getCoffeeShops = (lat, lon) => {
     queryURL = buildQueryUrl(lat, lon);
     $.ajax({
@@ -17,8 +14,8 @@ getCoffeeShops = (lat, lon) => {
             url: reverseURL,
             method: "GET"
         }).then(function (geoAddress) {
-            var adressStart = geoAddress.results[0].locations[0]
-            var startAddress = adressStart.street + ", " + adressStart.adminArea5 + ", " + adressStart.adminArea3 + ", " + adressStart.postalCode
+            let adressStart = geoAddress.results[0].locations[0]
+            let startAddress = adressStart.street + ", " + adressStart.adminArea5 + ", " + adressStart.adminArea3 + ", " + adressStart.postalCode
             $(".card-button").click(function () {
                 var shopAddress = $(this).data('address');
                 L.mapquest.key = 'QR7nQvmiQcuP7wcQSNDMp8gjLvJsXBcr';
@@ -43,24 +40,16 @@ function error(err) {
     console.warn(`ERROR(${err.code}): ${err.message}`);
 }
 const findByZipcode = (pos) => {
-    var options = {
-        enableHighAccuracy: true,
-        timeout: 5000,
-        maximumAge: 0
-    };
     let crds = pos.coords;
     let lat = crds.latitude;
     let lon = crds.longitude;
-
     let reverseURL = `https://www.mapquestapi.com/geocoding/v1/reverse?key=Sf1vVXP4tsAXRiAvYumsYGJTgGd0wlMe&location=${lat},${lon}&includeRoadMetadata=true&includeNearestIntersection=true`
-    var zipcode = $('#search').val().trim();
-
-    var url = `https://public.opendatasoft.com/api/records/1.0/search/?dataset=us-zip-code-latitude-and-longitude&q=${zipcode}&facet=state&facet=timezone&facet=dst`
+    let zipcode = $('#search').val().trim();
+    let url = `https://public.opendatasoft.com/api/records/1.0/search/?dataset=us-zip-code-latitude-and-longitude&q=${zipcode}&facet=state&facet=timezone&facet=dst`
     $.ajax({
         url: url,
         method: "GET"
     }).then(function (zips) {
-        //the lat lon data returned from this query is flipped
         let lat = zips.records[0].fields.longitude
         let lon = zips.records[0].fields.latitude
         let queryURL = buildQueryUrl(lat, lon);
@@ -77,12 +66,11 @@ const findByZipcode = (pos) => {
                 url: reverseURL,
                 method: "GET"
             }).then(function (geoAddress) {
-                var adressStart = geoAddress.results[0].locations[0]
-                var startAddress = adressStart.street + ", " + adressStart.adminArea5 + ", " + adressStart.adminArea3 + ", " + adressStart.postalCode
+                let adressStart = geoAddress.results[0].locations[0]
+                let startAddress = adressStart.street + ", " + adressStart.adminArea5 + ", " + adressStart.adminArea3 + ", " + adressStart.postalCode
                 $(".card-button").click(function () {
                     $(".theMap").empty();
                     var shopAddress = $(this).data('address');
-
                     L.mapquest.key = 'QR7nQvmiQcuP7wcQSNDMp8gjLvJsXBcr';
                     if (starVar === 0) {
                         starVar = 1
