@@ -1,4 +1,15 @@
 body{
-    background-image: radial-gradient(circle,  rgb(99, 77, 77),rgb(73, 31, 31) );
+    
+  
+    background-image: url('./espresso-coffee-639x425.jpg');
+    background-repeat: no-repeat;
+    background-size: 150%;
+    background-position: center;
     font-family: 'Abril Fatface', cursive;
+}
+.title{
+    color: blanchedalmond; 
+    text-transform: capitalize; 
+    margin-top:10rem;
+    border:  solid tan;
 }
