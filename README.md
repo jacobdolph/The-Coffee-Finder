@@ -7,9 +7,11 @@ It is mid afternoon and you hit your five o'clock downer. You grab for your phon
 
 ### Gallery
 ## Home:
+
 ![User Interface](./assets/css/cfHomepage.png)
 ![User Interface](./assets/css/cfHomepageTwo.png)
 ## Mobile View:
+
 ![Mobile Page View](./assets/css/cfMobile.png "Mobile Page View")
 ![Mobile Page View](./assets/css/cfMobileTwo.png "Mobile Page View")
 ### Problem
