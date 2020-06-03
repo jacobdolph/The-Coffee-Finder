@@ -38,14 +38,14 @@ getCoffeeShops = (lat, lon) => {
             let coffeeShopCard = $("<div>").attr({
                 "class": "card-button col s12 m3",
                 "data-address": data.candidates[i].attributes.Place_addr,
-                "style": "color:#334b51 "
+                "style": "color:#ffebcd "
 
             });
             let cardTitle = $("<h5>").attr({
                 "style": "text-align:left"
             }).text(data.candidates[i].address);
             let horizontalCard = $("<div>").addClass("card horizontal").attr({
-                "style": "padding-left:2rem; background-color:#ffebcd"
+                "style": "padding-left:2rem; background-color:rgba(56, 48, 48, 0.1); border:  solid tan;"
             });
             let cardImg = $("<div>").addClass("card-image");
             let Img = $('<img />', {

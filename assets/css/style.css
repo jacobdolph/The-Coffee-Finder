@@ -3,13 +3,19 @@ body{
   
     background-image: url('./espresso-coffee-639x425.jpg');
     background-repeat: no-repeat;
-    background-size: 150%;
+    background-size: 2880px;
     background-position: center;
     font-family: 'Abril Fatface', cursive;
 }
 .title{
     color: blanchedalmond; 
-    text-transform: capitalize; 
-    margin-top:10rem;
+    text-transform: capitalize;
     border:  solid tan;
+    margin: 0;
+}
+#main{
+    background-color:rgba(56, 48, 48, 0.7);
+}
+.last-row{
+    margin: 0;
 }
