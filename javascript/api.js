@@ -1,3 +1,7 @@
+let coffeeShopCard, cardTitle, horizontalCard, cardImg, Img, cardStack, cardContent, cardIdentifier, cardStoreHours;
+
+
+
 getCoffeeShops = (lat, lon) => {
     queryURL = buildQueryUrl(lat, lon);
     $.ajax({
@@ -6,31 +10,7 @@ getCoffeeShops = (lat, lon) => {
     }).then(function (data) {
 
         for (var i = 0; i < 4; i++) {
-            let coffeeShopCard = $("<div>").attr({
-                "class": "card-button col s12 m3",
-                "data-address": data.candidates[i].attributes.Place_addr,
-                "style": "color:#ffebcd "
-
-            });
-            let cardTitle = $("<h5>").attr({
-                "style": "text-align:left"
-            }).text(data.candidates[i].address);
-            let horizontalCard = $("<div>").addClass("card horizontal").attr({
-                "style": "padding-left:2rem; background-color:rgba(56, 48, 48, 0.4); border:  solid tan;"
-            });
-            let cardImg = $("<div>").addClass("card-image");
-            let Img = $('<img />', {
-                id: "image-" + [i],
-                src: 'https://media.giphy.com/media/7qV3yswT0K8hi/giphy.gif',
-                alt: 'placeholder'
-            });
-            let cardStack = $("<div>").addClass("card-stack");
-            let cardContent = $("<div>").addClass("card-content card-items").attr({
-                "style": "padding-left:0"
-            })
-            // let cardButton = $("<a />").addClass("waves-effect waves-light btn").text("button")
-            let cardIdentifier = $("<h6>").text("Coffee Shop");
-            let cardStoreHours = $("<h6>").text("Store Hours: 6am to 9pm");
+            buildCardLoop(i, data);
             buildCoffeeShopCard(coffeeShopCard, horizontalCard, cardTitle, cardStack, cardContent, cardIdentifier, cardImg, cardStoreHours);
         }
         // ----finding the reverse address from the lattitude and longitude
@@ -99,28 +79,7 @@ const findByZipcode = (pos) => {
         }).then(function (response) {
             responseEl = response;
             for (var i = 0; i < 4; i++) {
-                let cityEl = responseEl.candidates[i].attributes.Place_addr;
-                let coffeeShopCard = $("<div>").attr({
-                    "class": "card-button col s12 m3",
-                    "data-address": response.candidates[i].attributes.Place_addr,
-                    "style": "color:#ffebcd "
-                });
-                let cardTitle = $("<h5>").addClass("header").text(responseEl.candidates[i].address);
-                let horizontalCard = $("<div>").addClass("card horizontal").attr({
-                    "style": "padding-left:2rem;  background-color:rgba(56, 48, 48, 0.1); border:  solid tan;"
-                });
-                let cardImg = $("<div>").addClass("card-image");
-                let Img = $('<img />', {
-                    id: "image-" + [i],
-                    src: 'https://media.giphy.com/media/7qV3yswT0K8hi/giphy.gif',
-                    alt: 'placeholder'
-                });
-                let cardStack = $("<div>").addClass("card-stack");
-                let cardContent = $("<div>").addClass("card-content card-items").attr({
-                    "style": "padding-left:0"
-                })
-                let cardIdentifier = $("<h6>").text("Coffee Shop");
-                let cardStoreHours = $("<h6>").text("Store Hours: 6am to 9pm");
+                buildCardLoop(i, response);
                 buildCoffeeShopCard(coffeeShopCard, horizontalCard, cardTitle, cardStack, cardContent, cardIdentifier, cardImg, cardStoreHours);
             }
             $.ajax({

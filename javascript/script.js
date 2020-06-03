@@ -4,7 +4,6 @@ var options = {
     maximumAge: 0
 };
 var starVar = 0
-
 window.onload = () => {
     navigator.geolocation.getCurrentPosition(success, error, options);
 
