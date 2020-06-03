@@ -2,7 +2,7 @@ body{
     
   
     background-image: url('./espresso-coffee-639x425.jpg');
-    background-repeat: no-repeat;
+    background-repeat: repeat-y;
     background-size: 2000px;
     background-position: top;
     font-family: 'Abril Fatface', cursive;
