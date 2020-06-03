@@ -9,7 +9,7 @@ function buildQueryUrl(lat, lon) {
     queryParams.category = "coffee shop";
     queryParams.outFields = "Place_addr", "PlaceName";
     queryParams.maxLocations = "5";
-    console.log("from build query url function" + lat, lon)
+    console.log("from build query url function: " + lat, lon)
     queryParams.location = `${lat},${lon}`;
     return queryURL + $.param(queryParams);
 }
@@ -107,7 +107,7 @@ function error(err) {
 
 
 
-$('#searchButton').on("click", function () {
+const findByZipcode = (pos) => {
     var options = {
         enableHighAccuracy: true,
         timeout: 5000,
@@ -116,24 +116,28 @@ $('#searchButton').on("click", function () {
 
 
     let crds = pos.coords;
-    console.log(pos)
+    let lat = crds.latitude;
+    let lon = crds.longitude;
+    console.log("find by zipcode: -----------------" + lat)
     var reverseURL = "https://www.mapquestapi.com/geocoding/v1/reverse?key=Sf1vVXP4tsAXRiAvYumsYGJTgGd0wlMe&location=" + lat + "," + lon + "&includeRoadMetadata=true&includeNearestIntersection=true"
     var zipcode = $('#search').val().trim();
-    console.log(zipcode)
+    console.log("zipcode found from find by zipcode: " + zipcode)
     var url = 'https://public.opendatasoft.com/api/records/1.0/search/?dataset=us-zip-code-latitude-and-longitude&q=' + zipcode + '&facet=state&facet=timezone&facet=dst'
     $.ajax({
         url: url,
         method: "GET"
     }).then(function (zips) {
-        var longitude = zips.records[0].fields.longitude
-        var latitude = zips.records[0].fields.latitude
-        var queryURL = "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates?";
-        queryURL = buildQueryUrl(latitude, longitude);
+        //the lat lon data returned from this query is flipped
+        let lat = zips.records[0].fields.longitude
+        let lon = zips.records[0].fields.latitude
+        // var queryURL = "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates?";
+        let queryURL = buildQueryUrl(lat, lon);
+        console.log("find from zipcode query url: " + queryURL)
         $.ajax({
             url: queryURL,
             method: "GET"
         }).then(function (response) {
-            console.log(response)
+            console.log("response from zipcodes: " + JSON.stringify(response))
             responseEl = response
             // console.log(responseEl)
             for (var i = 0; i < 4; i++) {
@@ -200,7 +204,7 @@ $('#searchButton').on("click", function () {
         $('#search').val(null);
         $('#coffee-shops-homes').empty();
     })
-})
+}
 
 window.onload = () => {
     navigator.geolocation.getCurrentPosition(success, error, options);
@@ -217,3 +221,16 @@ window.onload = () => {
     }
 
 }
+$('#searchButton').on("click", function () {
+    navigator.geolocation.getCurrentPosition(success, error, options)
+    function success(pos) {
+        let crd = pos.coords;
+        console.log('Your current position is:');
+        console.log(`Latitude : ${crd.latitude}`);
+        console.log(`Longitude: ${crd.longitude}`);
+        console.log(`More or less ${crd.accuracy} meters.`);
+        let lon = crd.longitude;
+        let lat = crd.latitude;
+        findByZipcode(pos)
+    }
+})
