@@ -8,21 +8,15 @@ getCoffeeShops = (lat, lon) => {
         url: queryURL,
         method: "GET"
     }).then(function (data) {
-
         for (var i = 0; i < 4; i++) {
             buildCardLoop(i, data);
             buildCoffeeShopCard(coffeeShopCard, horizontalCard, cardTitle, cardStack, cardContent, cardIdentifier, cardImg, cardStoreHours);
         }
-        // ----finding the reverse address from the lattitude and longitude
-
         let reverseURL = `https://www.mapquestapi.com/geocoding/v1/reverse?key=Sf1vVXP4tsAXRiAvYumsYGJTgGd0wlMe&location=${lon},${lat}&includeRoadMetadata=true&includeNearestIntersection=true`;
-
-        // ----finding the reverse address of of the lattitude and longitude
         $.ajax({
             url: reverseURL,
             method: "GET"
         }).then(function (geoAddress) {
-
             var adressStart = geoAddress.results[0].locations[0]
             var startAddress = adressStart.street + ", " + adressStart.adminArea5 + ", " + adressStart.adminArea3 + ", " + adressStart.postalCode
             $(".card-button").click(function () {
@@ -48,23 +42,20 @@ getCoffeeShops = (lat, lon) => {
 function error(err) {
     console.warn(`ERROR(${err.code}): ${err.message}`);
 }
-
 const findByZipcode = (pos) => {
     var options = {
         enableHighAccuracy: true,
         timeout: 5000,
         maximumAge: 0
     };
-
-
     let crds = pos.coords;
     let lat = crds.latitude;
     let lon = crds.longitude;
 
-    var reverseURL = "https://www.mapquestapi.com/geocoding/v1/reverse?key=Sf1vVXP4tsAXRiAvYumsYGJTgGd0wlMe&location=" + lat + "," + lon + "&includeRoadMetadata=true&includeNearestIntersection=true"
+    let reverseURL = `https://www.mapquestapi.com/geocoding/v1/reverse?key=Sf1vVXP4tsAXRiAvYumsYGJTgGd0wlMe&location=${lat},${lon}&includeRoadMetadata=true&includeNearestIntersection=true`
     var zipcode = $('#search').val().trim();
 
-    var url = 'https://public.opendatasoft.com/api/records/1.0/search/?dataset=us-zip-code-latitude-and-longitude&q=' + zipcode + '&facet=state&facet=timezone&facet=dst'
+    var url = `https://public.opendatasoft.com/api/records/1.0/search/?dataset=us-zip-code-latitude-and-longitude&q=${zipcode}&facet=state&facet=timezone&facet=dst`
     $.ajax({
         url: url,
         method: "GET"
