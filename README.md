@@ -6,10 +6,12 @@ The purpose of this application is to find your local coffee shops near you.
 It is mid afternoon and you hit your five o'clock downer. You grab for your phone wanting to know where you can find your closest coffee shop! This is where our app comes in. You now have coffee at your finger tips. Coffee is now only one click away from directions and the five closest shops to your current location. 
 
 ### Gallery
-Home:
+## Home:
+
 ![User Interface](./assets/css/cfHomepage.png)
 ![User Interface](./assets/css/cfHomepageTwo.png)
-Mobile View:
+## Mobile View:
+
 ![Mobile Page View](./assets/css/cfMobile.png "Mobile Page View")
 ![Mobile Page View](./assets/css/cfMobileTwo.png "Mobile Page View")
 ### Problem
